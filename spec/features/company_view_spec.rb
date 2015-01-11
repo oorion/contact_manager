@@ -63,15 +63,15 @@ describe 'the company view', type: :feature do
       visit company_path(company)
     end
 
-    xit 'shows the email addresses' do
+    it 'shows the email addresses' do
       expect(page).to have_selector('li', text: 'test@example.com')
     end
 
-    xit 'has a link to add a new email address' do
-      expect(page).to have_link('Add email address', href: new_email_address_path(company_id: company.id))
+    it 'has a link to add a new email address' do
+      expect(page).to have_link('Add email address', href: new_email_address_path(contact_id: company.id, contact_type: 'Company'))
     end
 
-    xit 'can create new email addresses' do
+    it 'can create new email addresses' do
       page.click_link('Add email address')
       page.fill_in('Address', with: 'blah@blah.com')
       page.click_button('Create Email address')
@@ -79,13 +79,13 @@ describe 'the company view', type: :feature do
       expect(page).to have_content('blah@blah.com')
     end
 
-    xit 'has a link to edit an email address' do
+    it 'has a link to edit an email address' do
       company.email_addresses.each do |email_address|
         expect(page).to have_link('edit', href: edit_email_address_path(email_address))
       end
     end
 
-    xit 'can edit existing email addresses' do
+    it 'can edit existing email addresses' do
       email = company.email_addresses.first
       old_address = email.address
 
@@ -97,13 +97,13 @@ describe 'the company view', type: :feature do
       expect(page).to_not have_content(old_address)
     end
 
-    xit 'has a link to delete an email address' do
+    it 'has a link to delete an email address' do
       company.email_addresses.each do |email_address|
         expect(page).to have_link('delete', href: email_address_path(email_address))
       end
     end
 
-    xit 'has a link to delete an email address' do
+    it 'can delete an email address' do
       email_address = company.email_addresses.first
       old_email_address = email_address.address
 
